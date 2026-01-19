@@ -1,26 +1,238 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --tinder-orange: #fe5068;
+  --tinder-pink: #fe7d64;
+  --tinder-red: #ec5e6f;
+  --tinder-gold: #d4a832;
+  --tinder-blue: #2ebbf4;
+  --tinder-green: #2ee674;
+  --tinder-dark: #111418;
+  --tinder-darker: #0a0c0e;
+  --tinder-card: #1a1d21;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-tinder-orange: var(--tinder-orange);
+  --color-tinder-pink: var(--tinder-pink);
+  --color-tinder-red: var(--tinder-red);
+  --color-tinder-gold: var(--tinder-gold);
+  --color-tinder-blue: var(--tinder-blue);
+  --color-tinder-green: var(--tinder-green);
+  --color-tinder-dark: var(--tinder-dark);
+  --color-tinder-darker: var(--tinder-darker);
+  --color-tinder-card: var(--tinder-card);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+  overflow-y: auto;
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(135deg, #0a0c0e 0%, #111418 50%, #1a1d21 100%);
+  min-height: 100vh;
+  color: white;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0c0e;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #fe5068, #fe7d64);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #fe7d64, #fe5068);
+}
+
+/* Tinder Card Style */
+.tinder-card {
+  background: linear-gradient(145deg, rgba(26, 29, 33, 0.95), rgba(17, 20, 24, 0.95));
+  border: 1px solid rgba(254, 80, 104, 0.2);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.tinder-card:hover {
+  border-color: rgba(254, 80, 104, 0.4);
+  box-shadow: 0 8px 30px rgba(254, 80, 104, 0.15);
+}
+
+/* Tinder Gradient Text */
+.tinder-gradient-text {
+  background: linear-gradient(135deg, #fe5068 0%, #fe7d64 50%, #fd297b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Gold Gradient */
+.gold-gradient-text {
+  background: linear-gradient(135deg, #d4a832 0%, #f5d062 50%, #c9a227 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Profile Card */
+.profile-card {
+  background: linear-gradient(145deg, #1a1d21 0%, #111418 100%);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease;
+}
+
+.profile-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Swipe Buttons */
+.swipe-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.swipe-btn:hover {
+  transform: scale(1.1);
+}
+
+.swipe-btn.nope {
+  background: rgba(236, 94, 111, 0.1);
+  border: 2px solid #ec5e6f;
+  color: #ec5e6f;
+}
+
+.swipe-btn.nope:hover {
+  background: rgba(236, 94, 111, 0.2);
+  box-shadow: 0 0 20px rgba(236, 94, 111, 0.3);
+}
+
+.swipe-btn.like {
+  background: rgba(46, 230, 116, 0.1);
+  border: 2px solid #2ee674;
+  color: #2ee674;
+}
+
+.swipe-btn.like:hover {
+  background: rgba(46, 230, 116, 0.2);
+  box-shadow: 0 0 20px rgba(46, 230, 116, 0.3);
+}
+
+.swipe-btn.superlike {
+  background: rgba(46, 187, 244, 0.1);
+  border: 2px solid #2ebbf4;
+  color: #2ebbf4;
+}
+
+.swipe-btn.superlike:hover {
+  background: rgba(46, 187, 244, 0.2);
+  box-shadow: 0 0 20px rgba(46, 187, 244, 0.3);
+}
+
+/* Animations */
+@keyframes swipe-right {
+  0% { transform: translateX(0) rotate(0); opacity: 1; }
+  100% { transform: translateX(200px) rotate(20deg); opacity: 0; }
+}
+
+@keyframes swipe-left {
+  0% { transform: translateX(0) rotate(0); opacity: 1; }
+  100% { transform: translateX(-200px) rotate(-20deg); opacity: 0; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-heart {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-swipe-right {
+  animation: swipe-right 0.5s ease-out forwards;
+}
+
+.animate-swipe-left {
+  animation: swipe-left 0.5s ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.3s ease-out forwards;
+}
+
+.animate-pulse-heart {
+  animation: pulse-heart 1s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Match Badge */
+.match-badge {
+  background: linear-gradient(135deg, #fe5068, #fd297b);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Info Section */
+.info-section {
+  background: linear-gradient(145deg, rgba(26, 29, 33, 0.8), rgba(17, 20, 24, 0.8));
+  border: 1px solid rgba(254, 80, 104, 0.15);
+  border-radius: 16px;
+  padding: 24px;
+}
+
+/* Stat Box */
+.stat-box {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+}
+
+/* Tag */
+.interest-tag {
+  background: rgba(254, 80, 104, 0.15);
+  border: 1px solid rgba(254, 80, 104, 0.3);
+  color: #fe7d64;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
 }
